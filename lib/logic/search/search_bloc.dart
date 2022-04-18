@@ -19,11 +19,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 .toLowerCase()
                 .contains(event.searchInput.toLowerCase()))
             .toList();
-        if (data.isEmpty) {
-          emit(NoSearchResult());
-        } else {
           emit(SearchResult(studentList: data));
-        }
       }
       if (event is ClearInput) {
         emit(SearchResult(studentList: StudentDatabase().getStudentList()));

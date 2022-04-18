@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
         if (state is DeleteListState) {
           process = 'Deleted';
         }
-        if (state is! LoadedListState) {
+        if (state is! LoadedListState && state is! NoResultsState) {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Student $process Successfully")));
         }
@@ -94,14 +94,6 @@ class _HomePageState extends State<HomePage> {
             );
           } else {
                 final List<Student> data = state.studentList;
-                if (data.isEmpty) {
-                  return const Center(
-                      child: Text(
-                    "No results found",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ));
-                }
-                else {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                     child: ListView.separated(
@@ -208,9 +200,15 @@ class _HomePageState extends State<HomePage> {
                         },
                         itemCount: data.length),
                   );
-                }
           }
-        } else {
+        }else if(state is NoResultsState){
+          return const Center(
+              child: Text(
+                "No results found",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ));
+        }
+        else {
           return const Center(child: CircularProgressIndicator());
         }
       }),

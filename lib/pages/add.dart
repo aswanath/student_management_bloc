@@ -210,8 +210,8 @@ class _DetailsState extends State<Details> {
                               imagePath: _imagePath);
                           _studentDatabase.addStudent(student);
                           Navigator.pop(context);
+                          BlocProvider.of<StudentCubit>(context).addStudentListUpdated(_studentDatabase.getStudentBox());
                         }
-                        BlocProvider.of<StudentCubit>(context).addStudentListUpdated(_studentDatabase.getStudentBox());
                       },
                       child: const Text(
                         "Save",

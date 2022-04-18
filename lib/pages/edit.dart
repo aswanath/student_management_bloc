@@ -234,8 +234,8 @@ class _EditState extends State<Edit> {
                               imagePath: _imagePath);
                             _studentDatabase.editStudent(widget.itemKey, _student);
                           Navigator.pop(context);
+                           BlocProvider.of<StudentCubit>(context).editStudentListUpdated(_studentDatabase.getStudentBox());
                         }
-                        BlocProvider.of<StudentCubit>(context).editStudentListUpdated(_studentDatabase.getStudentBox());
                       },
                       child: const Text(
                         "Save",

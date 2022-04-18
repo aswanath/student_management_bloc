@@ -8,4 +8,3 @@ class SearchResult extends SearchState{
   SearchResult({required this.studentList});
 }
 
-class NoSearchResult extends SearchState{}

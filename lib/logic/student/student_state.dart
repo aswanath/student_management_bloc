@@ -34,5 +34,11 @@ class DeleteListState extends StudentState{
   List<Object?> get props => [];
 }
 
+class NoResultsState extends StudentState{
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
 
 

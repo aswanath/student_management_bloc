@@ -13,7 +13,7 @@ part 'student_state.dart';
 
 class StudentCubit extends Cubit<StudentState> {
   final List<Student> list;
-  StreamSubscription? streamSubscription;
+  late StreamSubscription streamSubscription;
   final SearchBloc searchBloc;
 
   //initial emit
@@ -21,7 +21,11 @@ class StudentCubit extends Cubit<StudentState> {
     emit(LoadedListState(studentList: list));
     streamSubscription = searchBloc.stream.listen((event) {
         if(event is SearchResult){
-          studentListUpdated(event.studentList);
+          if(event.studentList.isNotEmpty){
+            studentListUpdated(event.studentList);
+          }else{
+            emit(NoResultsState());
+          }
         }
     });
   }
@@ -49,6 +53,11 @@ class StudentCubit extends Cubit<StudentState> {
     emit(LoadedListState(studentList: box.values.toList()));
   }
 
+  @override
+  Future<void> close() {
+    streamSubscription.cancel();
+    return super.close();
+  }
 
 }
 
