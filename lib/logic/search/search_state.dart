@@ -7,3 +7,5 @@ class SearchResult extends SearchState{
    final List<Student> studentList;
   SearchResult({required this.studentList});
 }
+
+class NoSearchResult extends SearchState{}

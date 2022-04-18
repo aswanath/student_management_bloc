@@ -13,11 +13,13 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(StudentAdapter());
   await Hive.openBox<Student>('box_name');
-  runApp(const StudentManagement());
+  runApp( StudentManagement(searchBloc: SearchBloc(),iconCubit: IconCubit(),));
 }
 
 class StudentManagement extends StatelessWidget {
-  const StudentManagement({Key? key}) : super(key: key);
+  final SearchBloc searchBloc;
+  final IconCubit iconCubit;
+  const StudentManagement({Key? key, required this.searchBloc,required this.iconCubit}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +27,9 @@ class StudentManagement extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) =>
-                StudentCubit(list: StudentDatabase().getStudentList())),
-        BlocProvider(create: (context) => IconCubit()),
-        BlocProvider(create: (context)=>SearchBloc()),
+                StudentCubit(list: StudentDatabase().getStudentList(), searchBloc: searchBloc)),
+        BlocProvider(create: (context) => iconCubit),
+        BlocProvider(create: (context)=>searchBloc),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

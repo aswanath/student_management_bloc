@@ -236,7 +236,6 @@ class _EditState extends State<Edit> {
                           Navigator.pop(context);
                         }
                         BlocProvider.of<StudentCubit>(context).editStudentListUpdated(_studentDatabase.getStudentBox());
-                        context.read<SearchBloc>().add(ClearInput());
                       },
                       child: const Text(
                         "Save",
@@ -275,7 +274,6 @@ class _EditState extends State<Edit> {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
                                           BlocProvider.of<StudentCubit>(context).deleteStudentListUpdated(_studentDatabase.getStudentBox());
-                                          context.read<SearchBloc>().add(ClearInput());
                                         },
                                         child:const  Text("Yes"))
                                   ],

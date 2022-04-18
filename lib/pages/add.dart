@@ -212,7 +212,6 @@ class _DetailsState extends State<Details> {
                           Navigator.pop(context);
                         }
                         BlocProvider.of<StudentCubit>(context).addStudentListUpdated(_studentDatabase.getStudentBox());
-                        context.read<SearchBloc>().add(ClearInput());
                       },
                       child: const Text(
                         "Save",

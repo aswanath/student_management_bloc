@@ -88,14 +88,11 @@ class _HomePageState extends State<HomePage> {
         }
       }, builder: (context, state) {
         if (state is LoadedListState) {
-          if (state.props.isEmpty) {
+          if (state.studentList.isEmpty) {
             return const Center(
               child: Text("The Student List is Empty"),
             );
           } else {
-            return BlocBuilder<SearchBloc, SearchState>(
-                builder: (context, state) {
-              if (state is SearchResult) {
                 final List<Student> data = state.studentList;
                 if (data.isEmpty) {
                   return const Center(
@@ -103,7 +100,8 @@ class _HomePageState extends State<HomePage> {
                     "No results found",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ));
-                } else {
+                }
+                else {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                     child: ListView.separated(
@@ -211,10 +209,6 @@ class _HomePageState extends State<HomePage> {
                         itemCount: data.length),
                   );
                 }
-              } else {
-                return Container();
-              }
-            });
           }
         } else {
           return const Center(child: CircularProgressIndicator());
