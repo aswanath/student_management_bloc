@@ -6,9 +6,10 @@ import 'package:hive/hive.dart';
 import 'dart:core';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:student_management/bloc/student_cubit.dart';
+import 'package:student_management/logic/student/student_cubit.dart';
 import 'package:student_management/pages/image_view.dart';
 import 'package:student_management/student_database.dart';
+import '../logic/search/search_bloc.dart';
 import '../model/student.dart';
 import '../widgets/baseappbar.dart';
 import '../main.dart';
@@ -211,6 +212,7 @@ class _DetailsState extends State<Details> {
                           Navigator.pop(context);
                         }
                         BlocProvider.of<StudentCubit>(context).addStudentListUpdated(_studentDatabase.getStudentBox());
+                        context.read<SearchBloc>().add(ClearInput());
                       },
                       child: const Text(
                         "Save",

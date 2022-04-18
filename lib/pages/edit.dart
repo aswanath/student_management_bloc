@@ -6,7 +6,8 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:student_management/pages/image_view.dart';
 import 'package:student_management/student_database.dart';
-import '../bloc/student_cubit.dart';
+import '../logic/search/search_bloc.dart';
+import '../logic/student/student_cubit.dart';
 import '../model/student.dart';
 import '../widgets/baseappbar.dart';
 import '../main.dart';
@@ -235,7 +236,8 @@ class _EditState extends State<Edit> {
                           Navigator.pop(context);
                         }
                         BlocProvider.of<StudentCubit>(context).editStudentListUpdated(_studentDatabase.getStudentBox());
-                        },
+                        context.read<SearchBloc>().add(ClearInput());
+                      },
                       child: const Text(
                         "Save",
                         style: TextStyle(
@@ -273,6 +275,7 @@ class _EditState extends State<Edit> {
                                           Navigator.pop(context);
                                           Navigator.pop(context);
                                           BlocProvider.of<StudentCubit>(context).deleteStudentListUpdated(_studentDatabase.getStudentBox());
+                                          context.read<SearchBloc>().add(ClearInput());
                                         },
                                         child:const  Text("Yes"))
                                   ],

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:student_management/bloc/student_cubit.dart';
+import 'package:student_management/logic/search/search_bloc.dart';
+import 'package:student_management/logic/student/student_cubit.dart';
 import 'package:student_management/pages/splash_screen.dart';
 import 'package:student_management/student_database.dart';
+import 'logic/icon/icon_cubit.dart';
 import 'model/student.dart';
 
 void main() async {
@@ -19,8 +21,14 @@ class StudentManagement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<StudentCubit>(
-      create: (context) => StudentCubit(list: StudentDatabase().getStudentList()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) =>
+                StudentCubit(list: StudentDatabase().getStudentList())),
+        BlocProvider(create: (context) => IconCubit()),
+        BlocProvider(create: (context)=>SearchBloc()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
